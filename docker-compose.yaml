@@ -1,0 +1,17 @@
+version: '0.0.1'
+
+services:
+  ros: # 이미지 이름 => 디렉토리명-사용자입력
+    build: # Dockerfile이 있는 경로를 넣어주기
+      context: . # Dockerfile이 있는 경로
+      dockerfile: Dockerfile # Dockerfile 스크립트 파일 이름
+    command: /sbin/init # 컨테이너 시작시 실행할 명령어
+    privileged: true
+    stdin_open: true # docker run -i 와 같음=>  Keep STDIN open even if not attached | 없으면 스크립트 전부 실행하고 멈춤 백그라운드 없이 멈춤
+    tty: true # docker run -t 와 같음 => Allocate a pseudo-TTY  | 없으면 스크립트 전부 실행하고 백그라운드 없이 멈춤
+    # network_mode: host # docker run --network=host => host와 같은 네트워크 사용 | ports와 충돌나니 두 항목 중 하나만 사용
+    ports:
+    - '33389:3389'
+    - '12022:22'
+    # - '19800-19900:19800-19900/udp'
+    # - '19800-19900:19800-19900/tcp'
